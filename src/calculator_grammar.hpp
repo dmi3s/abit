@@ -8,13 +8,18 @@
 #endif
 
 #include  <stdexcept>
+
+//#define BOOST_RESULT_OF_USE_DECLTYPE
+
+#pragma warning(push,3)
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/phoenix/statement.hpp>
+#pragma warning(pop)
 
 namespace qi = boost::spirit::qi;
 namespace spirit = boost::spirit;
-namespace phoenix = boost::phoenix;
+namespace phx = boost::phoenix;
 
 template <typename Iterator>
 struct calculator_interpreter
@@ -52,10 +57,10 @@ struct calculator_interpreter
             "div" >> qi::lit('(')
             >> factor[qi::_val = qi::_1] >> ','
             >> factor[
-                qi::_val = phoenix::if_else(
+                qi::_val = phx::if_else(
                     qi::_1,
                     qi::_val /= qi::_1,
-                    (phoenix::throw_(std::runtime_error("division by zero")), qi::_1)
+                    (phx::throw_(std::runtime_error("division by zero")), qi::_1)
                 )
             ]
             >> ')';

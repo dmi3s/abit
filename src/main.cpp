@@ -1,8 +1,6 @@
 #include <iostream>
 #include <string>
 
-#include <boost/spirit/include/qi.hpp>
-
 #include "calculator_grammar.hpp"
 
 int main()
