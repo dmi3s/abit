@@ -4,12 +4,12 @@
 
 namespace abit {
 
-    boost::optional<int> interpret(std::string::iterator begin, std::string::iterator end, std::ostream& errors_stream)
+    boost::optional<int> interpret(std::string::const_iterator begin, std::string::const_iterator end, std::ostream& errors_stream)
     {
         using namespace std;
 
         try {
-            calculator_interpreter<string::iterator> calc{ errors_stream };
+            calculator_interpreter<string::const_iterator> calc{ errors_stream };
 
             int result;
             bool success = qi::phrase_parse(begin

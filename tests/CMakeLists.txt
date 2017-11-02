@@ -18,6 +18,8 @@ set(INTERPRET_TESTS_SRCS
 	${PROJECT_SOURCE_DIR}/src/interpret.cpp
         src/interpret_main.cpp
 	src/interpret_simple.cpp
+	src/interpret_let.cpp
+	src/interpret_from_task.cpp
 	)
 
 add_executable(interpret_tests ${INTERPRET_TESTS_SRCS})

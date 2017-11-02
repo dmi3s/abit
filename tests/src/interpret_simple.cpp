@@ -9,7 +9,7 @@ using abit::interpret;
 TEST(interp_base, empty)
 {
     string empty;
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(empty), end(empty), serr);
     ASSERT_FALSE(result);
@@ -18,7 +18,7 @@ TEST(interp_base, empty)
 TEST(interp_base, add)
 {
     string in("add(12,13)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_TRUE(result.is_initialized());
@@ -28,7 +28,7 @@ TEST(interp_base, add)
 TEST(interp_base, mult)
 {
     string in("mult(45,10)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_TRUE(result.is_initialized());
@@ -38,7 +38,7 @@ TEST(interp_base, mult)
 TEST(interp_base, sub)
 {
     string in("sub(16,32)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_TRUE(result.is_initialized());
@@ -48,7 +48,7 @@ TEST(interp_base, sub)
 TEST(interp_base, div)
 {
     string in("div(16,3)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_TRUE(result.is_initialized());
@@ -61,7 +61,7 @@ TEST(interp_base, max_int)
     string max_str = to_string(max_int);
 
     string in("sub("+max_str+",1)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_TRUE(result.is_initialized());
@@ -74,7 +74,7 @@ TEST(interp_base, min_int)
     string min_str = to_string(min_int);
 
     string in("add(" + min_str + ",1)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_TRUE(result.is_initialized());
@@ -84,7 +84,7 @@ TEST(interp_base, min_int)
 TEST(interp_base, whitespaces)
 {
     string in("  add\t  ( 12  ,    13   )    ");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_TRUE(result.is_initialized());
@@ -94,7 +94,7 @@ TEST(interp_base, whitespaces)
 TEST(interp_base, missing_open_parenthesis)
 {
     string in("sub 12,13)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_FALSE(result.is_initialized());
@@ -103,7 +103,7 @@ TEST(interp_base, missing_open_parenthesis)
 TEST(interp_base, missing_close_parenthesis)
 {
     string in("add(12,13");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_FALSE(result.is_initialized());
@@ -112,7 +112,7 @@ TEST(interp_base, missing_close_parenthesis)
 TEST(interp_base, missing_comma)
 {
     string in("mul(12 13)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_FALSE(result.is_initialized());
@@ -121,7 +121,7 @@ TEST(interp_base, missing_comma)
 TEST(interp_base, division_by_zero)
 {
     string in("div(12,0)");
-    stringstream serr;
+    ostringstream serr;
 
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_FALSE(result.is_initialized());

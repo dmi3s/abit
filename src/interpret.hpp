@@ -10,7 +10,7 @@
 
 namespace abit {
 
-    boost::optional<int> interpret(std::string::iterator begin, std::string::iterator end, std::ostream& errors_stream);
+    boost::optional<int> interpret(std::string::const_iterator begin, std::string::const_iterator end, std::ostream& errors_stream);
 
 }
 
