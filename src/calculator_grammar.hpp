@@ -1,16 +1,10 @@
-///////////////////////////////////////////////////////////////////////////////
-// calculator_grammar_simple.hpp
-#ifndef __CALCULATOR_GRAMMAR_SIMPLE_HPP__
-#define __CALCULATOR_GRAMMAR_SIMPLE_HPP__
-
-#ifdef _MSC_VER
 #pragma once
-#endif
+///////////////////////////////////////////////////////////////////////////////
+// calculator_grammar.hpp
+#ifndef CALCULATOR_GRAMMAR_HPP__
+#define CALCULATOR_GRAMMAR_HPP__
 
 #include <stdexcept>
-#include <vector>
-#include <utility>
-#include <iostream>
 
 #pragma warning(push,3)
 
@@ -32,36 +26,11 @@
 
 #pragma warning(pop)
 
+#include "symbol_table.hpp"
+
+
 namespace qi = boost::spirit::qi;
 namespace phx = boost::phoenix;
-
-class symbols_table {
-public:
-    void push(const std::pair<std::string,int>& local_variable)
-    {
-        table.push_back(local_variable);
-    }
-    void pop()
-    {
-        if (table.empty())
-            throw std::runtime_error("trying pop scope from empty table");
-        table.pop_back();
-    }
-    bool lookup(const std::string& name, int& value)
-    {
-        auto i = find_if(rbegin(table), rend(table), [&name](auto const& el) -> bool { return el.first == name; });
-        if (i == rend(table))
-            return false;
-
-        value = i->second;
-        return true;
-    }
-private:
-    std::vector<std::pair<std::string, int>> table;
-};
-
-
-
 
 template <typename Iterator>
 struct calculator_interpreter
@@ -95,31 +64,33 @@ struct calculator_interpreter
             >> ')'
             ;
 
-        var_declaration = (+qi::alpha >> ',' >> factor)
-            ;
-
         let =
-            lit("let") >> '(' 
-            >> var_declaration[ phx::bind(&symbols_table::push, phx::ref(stable), qi::_1) ]
-            >> ',' >> expr[ qi::_val = qi::_1, phx::bind(&symbols_table::pop, phx::ref(stable)) ]
+            lit("let")     >> '(' 
+            >> var_declaration[ phx::bind(&symbols_table::push, phx::ref(stable), _1) ]
+            >> ',' >> expr[ _val = _1, phx::bind(&symbols_table::pop, phx::ref(stable)) ]
             >> ')'
         ;
 
-        var_usage =
-            qi::as_string[+qi::alpha][qi::_pass = phx::bind(&symbols_table::lookup, phx::ref(stable), qi::_1, qi::_val)]
+        var_declaration = (+alpha >> ',' >> factor)
+            ;
+
+        variable =
+            qi::as_string[+alpha][_pass = phx::bind(&symbols_table::lookup, phx::ref(stable), _1, _val)]
         ;
 
         factor =
             qi::int_
             | expr
-            | var_usage
+            | variable
         ;
     }
 
     qi::rule<Iterator, int(), qi::space_type>
-        expr,add,sub,mult,div,factor,let,var_usage;
+        expr, add, sub, mult, div, let
+        , factor, variable;
 
-    qi::rule<Iterator, std::pair<std::string, int>(), qi::space_type> var_declaration;
+    qi::rule<Iterator, std::pair<std::string, int>(), qi::space_type> 
+        var_declaration;
 
     symbols_table stable;
 };
