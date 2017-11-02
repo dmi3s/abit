@@ -33,7 +33,7 @@ if(MSVC)
     target_compile_options("calculator" PUBLIC "/wd4503")
     target_compile_options("calculator" PUBLIC "/MP")
     add_compile_options("$<$<CONFIG:RELASE>:/Zi>")
-    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
+#    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
 endif()
 
 # DISABLE WITH:  -DBUILD_TESTS=OFF

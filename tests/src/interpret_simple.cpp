@@ -126,3 +126,4 @@ TEST(interp_base, division_by_zero)
     const auto result = interpret(begin(in), end(in), serr);
     ASSERT_FALSE(result.is_initialized());
 }
+
