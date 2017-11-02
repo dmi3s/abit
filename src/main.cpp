@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
 
     if (auto res = abit::interpret(begin(expr), end(expr), cerr))
     {
-        cout << res << endl;
+        cout << res.value() << endl;
         return 0;
     }
     else
