@@ -36,5 +36,13 @@ if(MSVC)
     set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
 endif()
 
+# DISABLE WITH:  -DBUILD_TESTS=OFF
+option (BUILD_TESTS "Build tests" ON)
 
-        
+if(BUILD_TESTS)
+    set(EXT_PROJECTS_DIR ${PROJECT_SOURCE_DIR}/ext)
+    add_subdirectory(${EXT_PROJECTS_DIR}/gtest)       # GTEST_INCLUDE_DIRS and GTEST_LIBRARIES
+    include_directories(${GTEST_INCLUDE_DIRS})
+    link_directories(${OUTPUT_DIR})
+    add_subdirectory(tests)
+endif()
