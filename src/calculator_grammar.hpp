@@ -9,20 +9,13 @@
 #pragma warning(push,3)
 
 #define BOOST_SPIRIT_USE_PHOENIX_V3
-#define BOOST_RESULT_OF_USE_DECLTYPE
+//#define BOOST_RESULT_OF_USE_DECLTYPE
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
-#include <boost/phoenix/core.hpp>
-#include <boost/phoenix/statement.hpp>
-#include <boost/phoenix/stl/container/container.hpp>
-#include <boost/phoenix/scope/local_variable.hpp>
-#include <boost/phoenix/bind/bind_member_function.hpp>
-#include <boost/phoenix/scope/let.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
+#include <boost/spirit/include/phoenix_statement.hpp>
+#include <boost/spirit/include/phoenix_bind.hpp>
 #include <boost/fusion/include/std_pair.hpp>
-#include <boost/fusion/functional/invocation/invoke.hpp>
-#include <boost/fusion/container/vector.hpp>
 
 #pragma warning(pop)
 
