@@ -25,3 +25,9 @@ set(INTERPRET_TESTS_SRCS
 add_executable(interpret_tests ${INTERPRET_TESTS_SRCS})
 target_link_libraries(interpret_tests ${GTEST_LIBRARIES})
 set_target_properties(interpret_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
+
+
+if(UNIX)
+  target_link_libraries (symtable_tests ${CMAKE_THREAD_LIBS_INIT})
+  target_link_libraries (interpret_tests ${CMAKE_THREAD_LIBS_INIT})
+endif()

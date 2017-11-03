@@ -1,9 +1,9 @@
-cmake_minimum_required(VERSION 3.9)
+cmake_minimum_required(VERSION 3.5)
 project(gtest_builder C CXX)
 include(ExternalProject)
 
 ExternalProject_Add(googletest
-    URL https://codeload.github.com/google/googletest/zip/release-1.8.0
+    URL https://github.com/google/googletest/archive/release-1.8.0.zip
     URL_MD5 adfafc8512ab65fd3cf7955ef0100ff5
     CMAKE_ARGS -Dgtest_force_shared_crt=ON
                -Dgtest_build_tests=OFF

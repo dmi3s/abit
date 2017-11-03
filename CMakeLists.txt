@@ -1,6 +1,10 @@
-cmake_minimum_required (VERSION 3.9)
+cmake_minimum_required (VERSION 3.5)
 
-find_package(Boost 1.65 REQUIRED)
+set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+find_package(Boost 1.58 REQUIRED)
 
 project("abit-test" CXX)
 
@@ -33,7 +37,10 @@ if(MSVC)
     target_compile_options("calculator" PUBLIC "/wd4503")
     target_compile_options("calculator" PUBLIC "/MP")
     add_compile_options("$<$<CONFIG:RELASE>:/Zi>")
-#    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
+    #    set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE} /DEBUG /OPT:REF /OPT:ICF")
+  elseif(UNIX)
+    find_package(Threads)
+    target_link_libraries("calculator" ${CMAKE_THREAD_LIBS_INIT})
 endif()
 
 # DISABLE WITH:  -DBUILD_TESTS=OFF
