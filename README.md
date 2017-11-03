@@ -55,9 +55,9 @@ $ calculator.exe "mult(2, 2)"
 Класс таблицы символов описан в файле `src/symbol_table.hpp`, тесты находятся в файле `tests/src/symtable_tests.cpp`.
 ### Сборка проекта ###
 * Prerequirements:
-    * cmake 3.9 
-    * boost 1.65
-    * Visual Studio 2012+ (сам собирал под VS 2017, так что не уверен, что на старых соберется. На VS 2015 должен)
+    * cmake 3.5
+    * boost 1.60
+    * Visual Studio 2017/gcc 7.2 (сам собирал под VS 2017 и gcc, так что не уверен, что на старых соберется. На VS 2015 должен)
 * Получение исходников и сборка:
 ```bash
 $git clone git@github.com:dmi3s/abit.git
