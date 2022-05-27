@@ -4,6 +4,11 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+if(UNIX)
+    set(Boost_INCLUDE_DIR /usr/include/)
+    set(Boost_LIBRARY_DIR /usr/lib/)
+endif()
+
 find_package(Boost 1.58 REQUIRED)
 
 project("abit-test" CXX)
